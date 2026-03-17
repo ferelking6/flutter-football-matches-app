@@ -19,7 +19,6 @@ import '../../features/matches/domain/usecases/get_match_updates.dart';
 import '../../features/matches/domain/repositories/matches_repository.dart';
 import '../../features/matches/data/repositories/matches_repository_impl.dart';
 import '../../features/matches/data/datasources/matches_remote_data_source.dart';
-import '../../features/matches/data/datasources/matches_demo_data_source.dart';
 import '../../features/matches/data/datasources/matches_websocket_data_source.dart';
 
 final sl = GetIt.instance;
@@ -56,10 +55,6 @@ Future<void> init() async {
     () => MatchesRemoteDataSourceImpl(apiService: sl()),
   );
 
-  sl.registerLazySingleton<MatchesDemoDataSource>(
-    () => MatchesDemoDataSourceImpl(),
-  );
-
   sl.registerLazySingleton<MatchesWebSocketDataSource>(
     () => MatchesWebSocketDataSourceImpl(webSocketService: sl()),
   );
@@ -68,7 +63,6 @@ Future<void> init() async {
   sl.registerLazySingleton<MatchesRepository>(
     () => MatchesRepositoryImpl(
       remoteDataSource: sl(),
-      demoDataSource: sl(),
       webSocketDataSource: sl(),
       networkInfo: sl(),
     ),
