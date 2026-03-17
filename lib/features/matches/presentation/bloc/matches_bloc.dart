@@ -57,7 +57,7 @@ class MatchesBloc extends Bloc<MatchesEvent, MatchesState> {
       final matches = await getTodayMatches();
       _updateStateWithMatches(emit, todayMatches: matches);
     } catch (e) {
-      emit(MatchesError('Failed to load today\'s matches: $e'));
+      emit(MatchesError('Verify connection'));
     }
   }
 
@@ -69,7 +69,7 @@ class MatchesBloc extends Bloc<MatchesEvent, MatchesState> {
       final matches = await getYesterdayMatches();
       _updateStateWithMatches(emit, yesterdayMatches: matches);
     } catch (e) {
-      emit(MatchesError('Failed to load yesterday\'s matches: $e'));
+      emit(MatchesError('Verify connection'));
     }
   }
 
@@ -81,7 +81,7 @@ class MatchesBloc extends Bloc<MatchesEvent, MatchesState> {
       final matches = await getTomorrowMatches();
       _updateStateWithMatches(emit, tomorrowMatches: matches);
     } catch (e) {
-      emit(MatchesError('Failed to load tomorrow\'s matches: $e'));
+      emit(MatchesError('Verify connection'));
     }
   }
 
@@ -108,7 +108,7 @@ class MatchesBloc extends Bloc<MatchesEvent, MatchesState> {
         ));
       } catch (e) {
         emit(currentState.copyWith(isRefreshing: false));
-        emit(MatchesError('Failed to refresh matches: $e'));
+        emit(MatchesError('Verify connection'));
       }
     }
   }
@@ -121,11 +121,11 @@ class MatchesBloc extends Bloc<MatchesEvent, MatchesState> {
     _matchUpdatesSubscription = getMatchUpdates(NoParams()).listen(
       (result) {
         result.fold(
-          (failure) => emit(MatchesError('WebSocket error: ${failure.toString()}')),
+          (failure) => emit(MatchesError('Verify connection')),
           (match) => add(MatchUpdatedEvent(match)),
         );
       },
-      onError: (error) => emit(MatchesError('WebSocket error: $error')),
+      onError: (error) => emit(MatchesError('Verify connection')),
     );
 
     if (state is MatchesLoaded) {
