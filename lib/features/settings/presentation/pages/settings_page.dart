@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../generated/l10n/app_localizations.dart';
-import '../../../core/theme/theme_exports.dart';
-import '../../../core/constants/app_mode_provider.dart';
-import '../bloc/matches_bloc.dart';
+import 'package:tornet_task/generated/l10n/app_localizations.dart';
+import 'package:tornet_task/core/theme/theme_exports.dart';
+import 'package:tornet_task/core/constants/app_mode_provider.dart';
+import 'package:tornet_task/features/matches/presentation/bloc/matches_bloc.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
